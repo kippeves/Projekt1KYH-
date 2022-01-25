@@ -1,0 +1,78 @@
+﻿@page
+@using DB.Models
+@model UI.Pages.Consultants.EditModel
+@{
+    Layout = "_Admin";
+}
+<h4>Edit Consult:</h4>
+<hr/>
+
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ListConsultant.Id"/>
+            <div class="form-group">
+                <label asp-for="ListConsultant.FirstName" class="control-label"></label>
+                <input type="text" asp-for="ListConsultant.FirstName" value="@Model.ListConsultant.FirstName" class="form-control"/>
+                <span asp-validation-for="ListConsultant.FirstName" class="text-danger"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="ListConsultant.LastName" class="control-label"></label>
+                <input type="text" asp-for="ListConsultant.LastName" value="@Model.ListConsultant.LastName" class="form-control"/>
+                <span asp-validation-for="ListConsultant.LastName" class="text-danger"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Edit" class="btn btn-light btn-outline-dark mt-2"/>
+            </div>
+        </form>
+        <hr/>
+        <form method="post">
+            @{
+                bool disabled = @Model.SkillSelect.Count() > 0 ? false : true;
+            }
+            <input type="hidden" name="entitytype" value="consultant"/>
+            <input type="hidden" asp-for="ListConsultant.Id"/>
+            <div class="form-group mb-3">
+                <label asp-for="SkillId" class="control-label">Add existing skill:</label>
+                <select disabled="@disabled" asp-for="SkillId" class="form-control" asp-items="@Model.SkillSelect"></select>
+                <span asp-validation-for="SkillId" class="text-danger"/>
+                <button disabled="@disabled" asp-page="/Skills" asp-page-handler="SkillSelect" type="submit" class="btn btn-light btn-outline-dark mt-2">Add Existing</button>
+            </div>
+            <div class="form-group">
+                <label asp-for="SkillInput" class="control-label">Add new skill:</label>
+                <input type="text" asp-for="SkillInput" class="form-control"/>
+                <span asp-validation-for="SkillInput" class="text-danger"/>
+                <button asp-page="/Skills" asp-page-handler="SkillInput" type="submit" class="btn btn-light btn-outline-dark mt-2">Add New</button>
+            </div>
+        </form>
+        
+        <a asp-page="/Consultants/Delete" asp-route-id="@Model.ListConsultant.Id" class="btn btn-danger">Delete</a>
+    </div>
+    <div class="col">
+        <table class="table table-striped m-auto w-50">
+            <thead>
+            <tr>
+                <th colspan="3" class="col text-center">Skills</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var skill in @Model.ListConsultant.Skills.OrderBy(s => s.Name))
+            {
+                <tr>
+                    <td>
+                        @skill.Name
+                    </td>
+                    <td class="col-1">
+                        <a asp-page="/Skills" asp-route-SkillId="@skill.Id" asp-route-id="@Model.ListConsultant.Id" asp-route-entitytype="consultant" asp-page-handler="Remove" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" style="color:red;" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@page
+@using Microsoft.Build.Evaluation
+@model UI.Pages.Projects.CreateModel
+
+@{
+    Layout = "_Admin";
+}
+<h1>Create</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Project.Name" class="control-label"></label>
+                <input type="text" asp-for="Project.Name" class="form-control">
+                <span asp-validation-for="Project.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Project.Description" class="control-label"></label>
+                <input type="text" asp-for="Project.Description" class="form-control">
+                <span asp-validation-for="Project.Description" class="text-danger"></span>
+            </div>
+            @if(@Model.CompanySelect.Count() > 0){
+                <div class="form-group">
+                    <label asp-for="Project.CompanyId" class="control-label"></label>
+                    <select asp-for="Project.CompanyId" class="form-control" asp-items="@Model.CompanySelect">
+                    </select>
+                    <span asp-validation-for="Project.CompanyId" class="text-danger" />
+                </div>
+            } else
+            {
+                <a asp-page="/Companies/Create">Add new Company</a>
+            }
+            <div class="form-group">
+                <label asp-for="Project.StatusId" class="control-label"></label>
+                <select asp-for="Project.StatusId" class="form-control" asp-items="@Model.StatusSelect">
+                </select>
+                <span asp-validation-for="Project.StatusId" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

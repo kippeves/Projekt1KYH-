@@ -1,0 +1,13 @@
+Company: Microsoft
+Project: MongoKiosk Microsystems
+Requested Skills:
+Consultants in project:
+	1. John Jackson
+
+Company: Johanssons
+Project: McDonalds Informationssystem
+Requested Skills:
+Consultants in project:
+	1. John Jackson
+	2. Peter Nilsson
+

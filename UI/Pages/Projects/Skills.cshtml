@@ -1,0 +1,55 @@
+﻿@page
+@model UI.Pages.Projects.SkillsModel
+
+@{
+    Layout = "_Admin";
+}
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <input type="hidden" asp-for="ListProject.Id"/>
+            <input type="hidden" name="entitytype" value="project"/>
+            @{
+                bool disabled = @Model.SkillSelect.Count() > 0 ? false : true;
+            }
+            <div class="form-group mb-3">
+                <label asp-for="SkillId" class="control-label">Add existing skill:</label>
+                <select disabled="@disabled" asp-for="SkillId" class="form-control" asp-items="@Model.SkillSelect"></select>
+                <span asp-validation-for="SkillId" class="text-danger"/>
+                <button disabled="@disabled" asp-page="/Skills" asp-page-handler="SkillSelect" type="submit" class="btn btn-light btn-outline-dark mt-2">Add Existing</button>
+            </div>
+            <div class="form-group">
+                <label asp-for="SkillInput" class="control-label">Add new skill:</label>
+                <input type="text" asp-for="SkillInput" class="form-control"/>
+                <span asp-validation-for="SkillInput" class="text-danger"/>
+                <button asp-page="/Skills" asp-page-handler="SkillInput" type="submit" class="btn btn-light btn-outline-dark mt-2">Add New</button>
+            </div>
+        </form>
+    </div>
+    <div class="col">
+                <table class="table table-striped m-auto w-50">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="col text-center">Skills</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var skill in @Model.ListProject.Skills.OrderBy(s => s.Name))
+                    {
+                    <tr>
+                        <td>
+                            @skill.Name
+                        </td>
+                        <td class="col-1">
+                            <a asp-page="/Skills" asp-route-SkillId="@skill.Id" asp-route-id="@Model.ListProject.Id" asp-route-entitytype="project" asp-page-handler="Remove" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" style="color:red;" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+    </div>
+</div>

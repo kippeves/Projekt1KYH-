@@ -1,0 +1,38 @@
+﻿@page
+@model UI.Pages.Consultants.ConnectModel
+@{
+    Layout = "_Admin";
+}
+<h2>Consultants for @Model.PageProject.Name</h2>
+<div class="row">
+        <div class="col">
+            <h3>Consults in project:</h3>
+            <ol>
+                @foreach (var consult in @Model.PageProject.Consultants)
+                {
+                    <li>@consult.FullName</li>
+                }
+            </ol>
+        </div>
+    <div class="col">
+        <h3>Add New Consult:</h3>
+        <div class="form-group">
+            <form asp-page-handler="Add" method="post">
+                <input type="hidden" asp-for="PageProject.Id"/>
+                <label asp-for="ListConsult.Id" class="control-label">Konsulter: </label>
+                <select asp-for="ListConsult.Id" class="form-control" asp-items="@Model.AddSelect">
+                </select>
+                <span asp-validation-for="ListConsult.Id" class="text-danger"/>
+                <button class="btn btn-default">Add</button>
+            </form>
+            <form asp-page-handler="Remove" method="post">
+                <input type="hidden" asp-for="PageProject.Id"/>
+                <label asp-for="ListConsult.Id" class="control-label">Konsulter: </label>
+                <select asp-for="ListConsult.Id" class="form-control" asp-items="@Model.RemoveSelect">
+                </select>
+                <span asp-validation-for="ListConsult.Id" class="text-danger"/>
+                <button class="btn btn-default">Remove</button>
+            </form>
+        </div>
+    </div>
+</div>

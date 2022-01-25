@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = string.IsNullOrEmpty(HttpContext.Session.GetString("_LoggedIn")) ? "_Layout" : "_Admin";
+    ViewData["Title"] = "Projects";
+}
+<h1 name="top">Active Projects</h1>
+<hr/>
+<div class="w-75 m-auto text-center">
+    @foreach (var status in Model.titleDictionary)
+    {
+        {
+            <h1 class="display-2 mb-3">&lt;&lt;&nbsp;@status.Key&nbsp;&gt;&gt;</h1>
+@for (var c = 'a'; c < 'å'; c++)
+{
+    @if (Model.titleDictionary[status.Key].ContainsKey(c))
+    {
+        <div style="padding-top: 1rem">
+            <p class="display-1" style="float:left;margin-top: -2rem">[@c.ToString().ToUpper()]</p>
+            <div class="w-50 m-auto pb-5">
+                @foreach (var p in Model.titleDictionary[status.Key][c])
+                {
+                    <dl>
+                        <dd>
+                            <h2>@p.Name</h2>
+                        </dd>
+                        <dt>Description</dt><dd>@p.Description</dd>
+                        <dt>Company</dt><dd>@p.Company?.Name</dd>
+                        <dt>Requested skills</dt>
+                        <dd>
+                        @foreach (var skill in p.Skills)
+                        {
+                            @(skill == p.Skills.Last() ? skill.Name : skill.Name + ", ")
+                        }
+                        </dd>
+                        <dt>Contracted consults:</dt>
+                        <dd>
+                        @foreach (var consultant in p.Consultants)
+                        {
+                            @(consultant == p.Consultants.Last() ? @consultant.FullName : @consultant.FullName + ", ")
+                        }
+                        </dd>
+                    </dl>
+                }
+            </div>
+        </div>
+    }
+}
+        }
+    }
+</div>

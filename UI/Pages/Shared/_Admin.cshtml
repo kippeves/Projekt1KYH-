@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - UI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/UI.styles.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-page="/Index">UI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Admin</button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-header">Consultants</div>
+                    <a asp-page="/Consultants/Create" class="dropdown-item">Create</a>
+                    <a asp-page="/Consultants/Index" class="dropdown-item">List All</a>
+                    <div class="dropdown-header">Projects</div>
+                    <a asp-page="/Projects/Create" class="dropdown-item">Create</a>
+                    <a asp-page="/Projects/Index" class="dropdown-item">List All</a>
+                    <div class="dropdown-header">Company</div>
+                    <a asp-page="/Companies/Create" class="dropdown-item">Create</a>
+                    <a asp-page="/Companies/Index" class="dropdown-item">List All</a>
+                    <div class="dropdown-header">Other</div>
+                    <a asp-page="/Index" asp-page-handler="SaveData" class="dropdown-item">Save Projects as Textfile</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main role="main">
+    <div class="container p-4">
+        @RenderBody()
+    </div>
+</main>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
